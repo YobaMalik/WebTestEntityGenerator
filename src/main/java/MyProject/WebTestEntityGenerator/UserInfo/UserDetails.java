@@ -8,7 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class UserDetails implements UserDetailsService {
 
     @Override
-    public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
 
         User user = this.findUserbyUername(username);
         org.springframework.security.core.userdetails.User.UserBuilder builder = null;

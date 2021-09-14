@@ -28,4 +28,19 @@ function tes() {
                     });
                  }
        );
+
+}
+
+
+function maxId() {
+    var dicClass = document.getElementById("MaxIdValue");
+    fetch("getMaxId", {
+           method: 'post',
+           headers: { 'Content-Type': 'application/json' }
+       }).then(function (response) {
+                 response.json().then(function (data) {
+                    dicClass.innerHTML = data;
+                    });
+                 }
+       );
 }
