@@ -1,6 +1,6 @@
-function test() {
-    var dicClass = document.getElementById("TPTC");
-    fetch("test123", {
+function getOnePerson() {
+    var dicClass = document.getElementById("OnePerson");
+    fetch("getOnePerson", {
            method: 'post',
            headers: { 'Content-Type': 'application/json' }
        }).then(function (response) {
@@ -12,9 +12,9 @@ function test() {
        );
 }
 
-function tes() {
-    var dicClass = document.getElementById("TPTC");
-    fetch("test", {
+function getAllFromDB() {
+    var dicClass = document.getElementById("Result");
+    fetch("getAllFromDB", {
            method: 'post',
            headers: { 'Content-Type': 'application/json' }
        }).then(function (response) {
@@ -31,15 +31,14 @@ function tes() {
 
 }
 
-
-function maxId() {
-    var dicClass = document.getElementById("MaxIdValue");
+function createPeople() {
+    var dicClass = document.getElementById("Result");
     fetch("getMaxId", {
            method: 'post',
            headers: { 'Content-Type': 'application/json' }
        }).then(function (response) {
                  response.json().then(function (data) {
-                    dicClass.innerHTML = data;
+                    dicClass.innerHTML = "около 153 ебал создано";//JSON.stringify(data);
                     });
                  }
        );

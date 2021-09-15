@@ -38,7 +38,6 @@ public class ConfigHandler implements IDataBaseMapper{
 
     @Override
     public List<?> setMap() {
-    //only for MongoDB
         return null;
     }
 

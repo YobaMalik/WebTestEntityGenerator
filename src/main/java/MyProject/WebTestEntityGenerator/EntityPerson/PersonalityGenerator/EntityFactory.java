@@ -4,6 +4,7 @@ package MyProject.WebTestEntityGenerator.EntityPerson.PersonalityGenerator;
 import MyProject.WebTestEntityGenerator.EntityPerson.DataBaseObjects.ConfigHandler;
 import MyProject.WebTestEntityGenerator.EntityPerson.PersonalityGenerator.Interface.IFactory;
 import MyProject.WebTestEntityGenerator.EntityPerson.PersonalityGenerator.Interface.IGenerator;
+import MyProject.WebTestEntityGenerator.JpaBeans.Entity.Person;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,11 +39,13 @@ public class EntityFactory implements IFactory {
         return 89000000000L + ThreadLocalRandom.current().nextLong(1L,999999999L);
     }
 
+    @Override
     public Person newInstanse(){
         return newSingleInstance();
     }
 
-    public List<Person> newInstanse(int entityCount){
+    @Override
+    public List<Person> newInstanse(long entityCount){
         List<Person> people = new ArrayList<>();
         for (int i = 0; i <= entityCount; i++){
             people.add(newSingleInstance());

@@ -1,4 +1,4 @@
-package MyProject.WebTestEntityGenerator.JpaTest.Entity;
+package MyProject.WebTestEntityGenerator.JpaBeans.Entity;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,13 +1,21 @@
-package MyProject.WebTestEntityGenerator.EntityPerson.PersonalityGenerator;
+package MyProject.WebTestEntityGenerator.JpaBeans.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table (name = "people")
 @ToString
 public class Person {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @Getter @Setter private Long id;
 
     @Getter @Setter private String firstName;
     @Getter @Setter private String middleName;
