@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -18,6 +18,37 @@
 <p>
 <button type="button" onclick="getAllFromDB()">Выгрузить все ебала</button>
 <div id="Result"></div>
+
+
+<form th:object="${form}" method="POST" action="saveFiles" enctype="multipart/form-data">
+    File to upload (path):
+    <input th:field="*{files}" type="file" multiple/>
+    <br />
+    <input type="submit" value="Upload">
+</form>
+
+<form th:object="${form}" method="POST" action="uploadFiles" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>Select Spec:</td>
+            <td>
+                <select th:field="*{filePath}">
+                    <option value=""> -- </option>
+                    <option th:each="key : ${form.getMyFileMap().keySet()}"
+                            th:value="${key}"
+                            th:utext="${key}">
+                    </option>
+                </select>
+                <!-- >  <input name="amount" type="number" step="any" th:field="*{temp}"><-->
+                <button type="submit">LUL</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+
+
 
 </body>
 

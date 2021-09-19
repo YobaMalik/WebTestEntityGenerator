@@ -37,9 +37,12 @@ function createPeople() {
            method: 'post',
            headers: { 'Content-Type': 'application/json' }
        }).then(function (response) {
-                 response.json().then(function (data) {
-                    dicClass.innerHTML = "около 153 ебал создано";//JSON.stringify(data);
+               /*  response.json().then(function (data) {
+                 alert(data);
+                   // dicClass.innerHTML = "около 153 ебал создано";//JSON.stringify(data);
                     });
+                    */
+                 //   alert(response);
                  }
        );
 }

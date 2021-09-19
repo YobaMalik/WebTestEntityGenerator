@@ -75,6 +75,7 @@ public class JpaConfig {
         return jdbcTemplate;
     }
 /*
+//xml persistence below
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
