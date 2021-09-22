@@ -46,3 +46,26 @@ function createPeople() {
                  }
        );
 }
+
+function onchangeTest() {
+    var dicClass = document.getElementById("onchangeTest");
+    var message = document.getElementById("message_id").value;
+    fetch("onсhangeTest", {
+           method: 'post',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                     message:message
+                  })
+              }).then(function (response) {
+                                  response.json().then(function (data) {
+                                     var entities = new Array();
+                                     for (var value of data){
+                                     entities.push(value["firstName"] + " " +
+                                                                     value["middleName"] + " " + value["lastName"] + " " + value["phoneNumber"]);
+                                     }
+                                     dicClass.innerHTML = "<p>" + entities.join("</p><p>") + "</p>";
+                                     });
+                                  }
+                        );
+
+                 }

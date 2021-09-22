@@ -23,7 +23,6 @@
 <form th:object="${form}" method="POST" action="saveFiles" enctype="multipart/form-data">
     File to upload (path):
     <input th:field="*{files}" type="file" multiple/>
-    <br />
     <input type="submit" value="Upload">
 </form>
 
@@ -32,7 +31,7 @@
         <tr>
             <td>Select Spec:</td>
             <td>
-                <select th:field="*{filePath}">
+                <select th:field="*{filePath}" >
                     <option value=""> -- </option>
                     <option th:each="key : ${form.getMyFileMap().keySet()}"
                             th:value="${key}"
@@ -42,12 +41,13 @@
                 <!-- >  <input name="amount" type="number" step="any" th:field="*{temp}"><-->
                 <button type="submit">LUL</button>
             </td>
-        </tr>
     </table>
 </form>
 
+<textarea id="message_id" name="message_name" type="text" onchange="onchangeTest()"></textarea>
 
-
+<br>
+<div id = "onchangeTest"></div>
 
 
 </body>
