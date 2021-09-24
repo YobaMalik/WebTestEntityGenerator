@@ -1,22 +1,40 @@
 package MyProject.WebTestEntityGenerator.UserInfo;
 
-
+//import MyProject.WebTestEntityGenerator.JpaBeans.Entity.User;
+import MyProject.WebTestEntityGenerator.JpaBeans.Entity.User;
+import MyProject.WebTestEntityGenerator.JpaBeans.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.nio.CharBuffer;
+
 public class UserDetails implements UserDetailsService {
+
+    @Autowired
+    private UserService userService;
+
+
+    /*public UserDetails(UserService userService){
+        this.userService = userService;
+    }
+
+     */
 
     @Override
     public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
-        User user = this.findUserbyUername(username);
+        User user = this.findUserbyUsername(username);
         org.springframework.security.core.userdetails.User.UserBuilder builder ;
         if (user != null) {
             builder = org.springframework.security.core.userdetails.User.withUsername(username);
-            builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
-            builder.roles(user.getRoles());
+            builder.password(
+                    new BCryptPasswordEncoder().encode(
+                            CharBuffer.wrap(user.getPassword())
+                    ));
+            builder.roles(user.getRole());
         } else {
             throw new UsernameNotFoundException("User not found.");
         }
@@ -24,13 +42,18 @@ public class UserDetails implements UserDetailsService {
         return builder.build();
     }
 
-    private User findUserbyUername(String username) {
+    private User findUserbyUsername(String username) {
+        return userService.findByUsername(username);
+    }
+
+/*
+    private UserOld findUserbyUsername(String username) {
         if (username.equalsIgnoreCase("admin")) {
-            return new User(username, "admin123", "ADMIN");
+            return new UserOld(username, "admin", "ADMIN");
         }
 
         if (username.equalsIgnoreCase("user")) {
-            return new User(username, "password1234", "USER");
+            return new UserOld(username, "password1234", "USER");
         }
         return null;
     }

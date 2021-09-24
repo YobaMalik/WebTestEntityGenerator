@@ -48,4 +48,8 @@ public class MyFileService {
         return myFileList;
     }
 
+    public void findByPart(){
+        fileRepository.findAll();
+    }
+
 }

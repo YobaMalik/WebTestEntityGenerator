@@ -21,8 +21,12 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class JpaConfig {
 
-    @Autowired
     private Environment env;
+
+    @Autowired
+    public JpaConfig(Environment env){
+        this.env = env;
+    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {

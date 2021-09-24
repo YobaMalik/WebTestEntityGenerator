@@ -26,8 +26,8 @@ public class Person {
 
     public String getStringPhoneNumber(){
         String temp = this.phoneNumber.toString();
-        return temp.charAt(0) + "-" + temp.substring(1,4) + "-" + temp.substring(4,7) + "-" +
-                temp.substring(7,9) + "-" + temp.substring(9,11);
+        return temp.length() == 11?temp.charAt(0) + "-" + temp.substring(1,4) + "-" + temp.substring(4,7) + "-" +
+                temp.substring(7,9) + "-" + temp.substring(9,11):temp;
     }
 
 }

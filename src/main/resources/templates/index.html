@@ -3,9 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Get date from files (v.01)</title>
+    <title>PetProject</title>
     <script src="/Script.js"></script>
+    <th:block th:include="menu"></th:block>
 </head>
+
 <body>
 
 <div id="OnePerson"></div>
@@ -20,13 +22,13 @@
 <div id="Result"></div>
 
 
-<form th:object="${form}" method="POST" action="saveFiles" enctype="multipart/form-data">
+<form th:object="${form}" method="POST" action="SaveFiles" enctype="multipart/form-data">
     File to upload (path):
     <input th:field="*{files}" type="file" multiple/>
     <input type="submit" value="Upload">
 </form>
 
-<form th:object="${form}" method="POST" action="uploadFiles" enctype="multipart/form-data">
+<form th:object="${form}" method="POST" action="UploadFiles" enctype="multipart/form-data">
     <table>
         <tr>
             <td>Select Spec:</td>
@@ -44,10 +46,6 @@
     </table>
 </form>
 
-<textarea id="message_id" name="message_name" type="text" onchange="onchangeTest()"></textarea>
-
-<br>
-<div id = "onchangeTest"></div>
 
 
 </body>

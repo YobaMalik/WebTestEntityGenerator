@@ -17,57 +17,47 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Controller
-public class WebController {
+public class RersonController {
 
-    @Autowired
-    private FileSearchThread thread;
-
-    @Autowired
     private PeopleService peopleService;
 
     @Autowired
-    private MyFileService myFileService;
-
-    @Autowired
-    private TestForm testForm;
-
-    @Autowired
-    private Form form;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String homePage(Model model) {
-        form.setMyFileMap(myFileService.findAll());
-        model.addAttribute("form", form);
-        return "index";
+    public RersonController(PeopleService peopleService){
+        this.peopleService = peopleService;
     }
 
-    @PostMapping(value = "/getOnePerson", headers = {"Content-type=application/json"})
+
+
+    @PostMapping(value = "/GetOnePerson", headers = {"Content-type=application/json"})
     @ResponseBody
     public Person getPerson() {
         return peopleService.getFactory().newInstanse();
     }
 
-    @PostMapping(value = "/getAllFromDB", headers = {"Content-type=application/json"})
+    @PostMapping(value = "/GetAllFromDB", headers = {"Content-type=application/json"})
     @ResponseBody
     public Iterable<Person> getPersonList() {
         return peopleService.getAllEntities();
     }
 
-    @PostMapping(value = "/getMaxId"/*, headers = {"Content-type=application/json"}*/)
+    @PostMapping(value = "/GetMaxId"/*, headers = {"Content-type=application/json"}*/)
     @ResponseBody
     public void getMaxId() {
         peopleService.addPeople((short) 152);
     }
 
-    @PostMapping(value = "/onсhangeTest", headers = {"Content-type=application/json"})
+    @PostMapping(value = "/FindByContaining", headers = {"Content-type=application/json"})
     @ResponseBody
-    public Iterable<Person> getNewValue(@RequestBody TestForm message) {
-        return StreamSupport.stream(
-                peopleService.getAllEntities().spliterator(),false)
-                .filter(e -> e.getFirstName().contains(message.getMessage()))
-                .collect(Collectors.toList()
-                );
+    public List<Person> findByContaining(@RequestBody TestForm message) {
+        return peopleService.findByLastNameContaining(message.getMessage());
     }
+
+    @PostMapping(value = "/UpdateTest", headers = {"Content-type=application/json"})
+    @ResponseBody
+    public void updateTest(@RequestBody TestForm message) {
+        peopleService.updateEntity(1L,message.getMessage());
+    }
+
 }
 
 

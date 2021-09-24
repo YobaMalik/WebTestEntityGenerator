@@ -16,8 +16,12 @@ import java.util.Map;
 @Service
 public class FileSearchThread implements Runnable {
 
+    private FileList files;
+
     @Autowired
-    FileList files;
+    public FileSearchThread(FileList files){
+        this.files = files;
+    }
 
     @Getter
     List<MyFile> fileMap = new ArrayList<>();
