@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TestForm {
+
     @Getter @Setter private String message;
+    @Getter @Setter private String phone;
 
 }

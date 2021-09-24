@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 public class EntityFactory implements IFactory {
 
-    private static Person newSingleInstance(){
+    private Person newSingleInstance(){
         Person person = new Person();
         IGenerator generator = new RandomValueGenerator();
 
@@ -30,12 +30,12 @@ public class EntityFactory implements IFactory {
         person.setFirstName(firstName);
         person.setMiddleName(middleName);
         person.setLastName(lastName);
-        person.setPhoneNumber(EntityFactory.newPhoneNumber());
+        person.setPhoneNumber(this.newPhoneNumber());
 
         return person;
     }
 
-    private static Long newPhoneNumber(){
+    private Long newPhoneNumber(){
         return 89000000000L + ThreadLocalRandom.current().nextLong(1L,999999999L);
     }
 
