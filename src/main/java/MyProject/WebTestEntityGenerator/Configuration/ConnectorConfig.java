@@ -1,4 +1,4 @@
-package MyProject.WebTestEntityGenerator.ConfigurationClass;
+package MyProject.WebTestEntityGenerator.Configuration;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;

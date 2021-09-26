@@ -1,4 +1,4 @@
-package MyProject.WebTestEntityGenerator.ConfigurationClass;
+package MyProject.WebTestEntityGenerator.Configuration;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +70,9 @@ public class JpaConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(final DataSource dataSource) {
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
 
         final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-
         jdbcTemplate.setResultsMapCaseInsensitive(true);
 
         return jdbcTemplate;

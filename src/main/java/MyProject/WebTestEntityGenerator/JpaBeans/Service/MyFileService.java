@@ -1,7 +1,7 @@
 package MyProject.WebTestEntityGenerator.JpaBeans.Service;
 
 import MyProject.WebTestEntityGenerator.FileExchanger.FileConverter;
-import MyProject.WebTestEntityGenerator.FileExchanger.Form;
+import MyProject.WebTestEntityGenerator.MVCForms.FileExchangerForm;
 import MyProject.WebTestEntityGenerator.JpaBeans.Entity.MyFile;
 import MyProject.WebTestEntityGenerator.JpaBeans.Repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class MyFileService {
         fileRepository.saveAll(files);
     }
 
-    public void addFiles(Form form){
+    public void addFiles(FileExchangerForm form){
         fileRepository.saveAll(this.convertMockMultiPartFile(form.getFiles()));
     }
 

@@ -10,8 +10,8 @@ import java.io.OutputStream;
 
 @Component
 public class FileUploader {
-    public void upload(String path, HttpServletResponse response){
 
+    public void upload(String path, HttpServletResponse response){
         try (InputStream in = new FileInputStream(path);
              OutputStream out = response.getOutputStream()){
             int count;
@@ -23,4 +23,5 @@ public class FileUploader {
             e.printStackTrace();
         }
     }
+
 }

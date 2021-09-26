@@ -1,11 +1,13 @@
-package MyProject.WebTestEntityGenerator.TestPackage;
+package MyProject.WebTestEntityGenerator.MVCForms;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestForm {
+//@Scope("session")
+public class PersonForm {
 
     @Getter @Setter private String message;
     @Getter @Setter private String phone;

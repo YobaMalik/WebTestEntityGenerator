@@ -70,24 +70,33 @@ function findByContaining() {
 
                  }
 
-function updateTest() {
+function UpdateEntity() {
     var message = document.getElementById("phone_id").value;
-    fetch("UpdateTest", {
+    fetch("UpdateEntity", {
            method: 'post',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
                      message:message
                   })
               }).then(function (response) {
-                             /*     response.json().then(function (data) {
-                                     var entities = new Array();
-                                     for (var value of data){
-                                     entities.push(value["firstName"] + " " +
-                                                                     value["middleName"] + " " + value["lastName"] + " " + value["phoneNumber"]);
-                                     }
-                                     dicClass.innerHTML = "<p>" + entities.join("</p><p>") + "</p>";
-                                     });*/
+
                                   }
                         );
 
                  }
+
+function zulul() {
+    var password = document.getElementById("password").value;
+    var userName = document.getElementById("userName").value;
+    fetch("zulul", {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            password:password,
+            userName:userName
+        })
+        }).then(function (response) {
+document.getElementById("request_reg").innerHTML="удача блин";
+}
+);
+}

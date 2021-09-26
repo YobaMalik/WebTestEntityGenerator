@@ -31,9 +31,7 @@ public class UserDetails implements UserDetailsService {
         if (user != null) {
             builder = org.springframework.security.core.userdetails.User.withUsername(username);
             builder.password(
-                    new BCryptPasswordEncoder().encode(
-                            CharBuffer.wrap(user.getPassword())
-                    ));
+                    new BCryptPasswordEncoder().encode(user.getPassword()));
             builder.roles(user.getRole());
         } else {
             throw new UsernameNotFoundException("User not found.");
@@ -57,38 +55,7 @@ public class UserDetails implements UserDetailsService {
         }
         return null;
     }
-/*
-    private User findUserbyUername(String username,String z)  {
-
-        User user = null;
-        try {
-            con = DriverManager.getConnection(URL, User, pass);
-            Statement st = con.createStatement();
-            String dbRequest = "SELECT name, password, role FROM ACCAUNT WHERE name=name";
-            ResultSet set = st.executeQuery(dbRequest);
-
-            while (set.next()) {
-                if(username.equals(set.getString("name"))) user=
-                        new User(username,set.getString("password"),
-                                set.getString("role").toUpperCase());
-
-            }
-
-            st.close();
-            if (username.equalsIgnoreCase("admin")) {
-                user= new User(username, "admin123", "ADMIN");
-            }
-
-            if (username.equalsIgnoreCase("user")) {
-                user= new User(username, "password1234", "USER");
-            }
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return user;
-    }
 
  */
+
 }

@@ -1,4 +1,4 @@
-package MyProject.WebTestEntityGenerator.ConfigurationClass;
+package MyProject.WebTestEntityGenerator.Configuration;
 
 
 import MyProject.WebTestEntityGenerator.UserInfo.UserDetails;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class Security extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {

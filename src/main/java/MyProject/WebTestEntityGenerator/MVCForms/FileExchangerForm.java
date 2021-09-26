@@ -1,4 +1,4 @@
-package MyProject.WebTestEntityGenerator.FileExchanger;
+package MyProject.WebTestEntityGenerator.MVCForms;
 
 import MyProject.WebTestEntityGenerator.JpaBeans.Entity.MyFile;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.Map;
 @Setter
 @ToString
 @Component
-public class Form {
+public class FileExchangerForm {
 
     private List<MultipartFile> files;
 

@@ -1,4 +1,4 @@
-package MyProject.WebTestEntityGenerator.ConfigurationClass;
+package MyProject.WebTestEntityGenerator.Configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
-public class TemplateConfiguration implements WebMvcConfigurer {
+public class TemplateConfig implements WebMvcConfigurer {
 
     @Bean
     public SpringResourceTemplateResolver firstTemplateResolver() {
@@ -23,16 +23,4 @@ public class TemplateConfiguration implements WebMvcConfigurer {
         return templateResolver;
     }
 
-    @Bean
-    public ClassLoaderTemplateResolver secondTemplateResolver() {
-        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setPrefix("templates/CalcTemplate/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-        templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setOrder(1);
-        templateResolver.setCheckExistence(true);
-
-        return templateResolver;
-    }
 }

@@ -1,20 +1,15 @@
 package MyProject.WebTestEntityGenerator.WebControllers;
 
-import MyProject.WebTestEntityGenerator.FileExchanger.Form;
 import MyProject.WebTestEntityGenerator.JpaBeans.Entity.Person;
-import MyProject.WebTestEntityGenerator.JpaBeans.Service.MyFileService;
 import MyProject.WebTestEntityGenerator.JpaBeans.Service.PeopleService;
-import MyProject.WebTestEntityGenerator.TestPackage.TestForm;
-import MyProject.WebTestEntityGenerator.ThreadTest.FileSearchThread;
+import MyProject.WebTestEntityGenerator.MVCForms.PersonForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 @Controller
 public class RersonController {
@@ -25,8 +20,6 @@ public class RersonController {
     public RersonController(PeopleService peopleService){
         this.peopleService = peopleService;
     }
-
-
 
     @PostMapping(value = "/GetOnePerson", headers = {"Content-type=application/json"})
     @ResponseBody
@@ -48,13 +41,13 @@ public class RersonController {
 
     @PostMapping(value = "/FindByContaining", headers = {"Content-type=application/json"})
     @ResponseBody
-    public List<Person> findByContaining(@RequestBody TestForm message) {
+    public List<Person> findByContaining(@RequestBody PersonForm message) {
         return peopleService.findByLastNameContaining(message.getMessage());
     }
 
-    @PostMapping(value = "/UpdateTest", headers = {"Content-type=application/json"})
+    @PostMapping(value = "/UpdateEntity", headers = {"Content-type=application/json"})
     @ResponseBody
-    public void updateTest(@RequestBody TestForm message) {
+    public void updateEntity(@RequestBody PersonForm message) {
         peopleService.updateEntity(1L,message.getMessage());
     }
 
