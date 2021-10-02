@@ -1,6 +1,7 @@
 package MyProject.WebTestEntityGenerator.WebControllers;
 
 import MyProject.WebTestEntityGenerator.JpaBeans.Entity.Person;
+import MyProject.WebTestEntityGenerator.JpaBeans.Service.CacheData;
 import MyProject.WebTestEntityGenerator.JpaBeans.Service.PeopleService;
 import MyProject.WebTestEntityGenerator.MVCForms.PersonForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import java.util.List;
 
 @Controller
 public class RersonController {
+
+    @Autowired
+    private CacheData data;
 
     private PeopleService peopleService;
 
@@ -42,7 +46,8 @@ public class RersonController {
     @PostMapping(value = "/FindByContaining", headers = {"Content-type=application/json"})
     @ResponseBody
     public List<Person> findByContaining(@RequestBody PersonForm message) {
-        return peopleService.findByLastNameContaining(message.getMessage());
+       return peopleService.findAll(data.getLatNameContaining(message.getMessage()));
+       //  return peopleService.findByLastNameContaining(message.getMessage());
     }
 
     @PostMapping(value = "/UpdateEntity", headers = {"Content-type=application/json"})

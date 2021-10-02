@@ -4,10 +4,14 @@ import MyProject.WebTestEntityGenerator.EntityPerson.PersonalityGenerator.Entity
 import MyProject.WebTestEntityGenerator.JpaBeans.Entity.Person;
 import MyProject.WebTestEntityGenerator.JpaBeans.Repository.PeopleRepository;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 public class PeopleService {
@@ -43,6 +47,11 @@ public class PeopleService {
         Person person = peopleRepository.getById(id);
         person.setPhoneNumber(Long.parseLong(phoneNumber));
         peopleRepository.save(person);
+    }
+
+    public List<Person> findAll(List<Long> peopleId){
+        peopleId.forEach(System.out::println);
+        return peopleRepository.findAllById(peopleId);
     }
 
 }
