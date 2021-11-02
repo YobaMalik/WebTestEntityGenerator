@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class RegistrationController {
 
-    //
     private RegistrationForm registrationForm;
     private UserService userService;
 
@@ -28,7 +27,7 @@ public class RegistrationController {
     }
 
     @PostMapping(path = "zulul", headers = "Content-type=application/json")
-    @ResponseBody
+//    @ResponseBody
     public String registration( @RequestBody RegistrationForm form){
         userService.registration(form);
         return "redirect:/";

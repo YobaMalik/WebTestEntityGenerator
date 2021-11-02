@@ -1,6 +1,7 @@
 package MyProject.WebTestEntityGenerator.JpaBeans.Service;
 
 import MyProject.WebTestEntityGenerator.EntityPerson.PersonalityGenerator.EntityFactory;
+import MyProject.WebTestEntityGenerator.EntityPerson.PersonalityGenerator.Interface.IFactory;
 import MyProject.WebTestEntityGenerator.JpaBeans.Entity.Person;
 import MyProject.WebTestEntityGenerator.JpaBeans.Repository.PeopleRepository;
 import lombok.Getter;
@@ -16,13 +17,16 @@ import java.util.stream.Collectors;
 @Service
 public class PeopleService {
 
-    @Autowired
     private PeopleRepository peopleRepository;
 
-    @Autowired
     @Getter
-    private EntityFactory factory;
+    private IFactory factory;
 
+    @Autowired
+    public PeopleService(PeopleRepository peopleRepository, IFactory factory){
+        this.peopleRepository = peopleRepository;
+        this.factory = factory;
+    }
     public Person getById(Long id){
         return peopleRepository.getById(id);
     }
@@ -50,8 +54,13 @@ public class PeopleService {
     }
 
     public List<Person> findAll(List<Long> peopleId){
-        peopleId.forEach(System.out::println);
         return peopleRepository.findAllById(peopleId);
+    }
+
+    public String getStringPhoneNumber(Person person){
+        String temp = person.getPhoneNumber().toString();
+        return temp.length() == 11?temp.charAt(0) + "-" + temp.substring(1,4) + "-" + temp.substring(4,7) + "-" +
+                temp.substring(7,9) + "-" + temp.substring(9,11):temp;
     }
 
 }

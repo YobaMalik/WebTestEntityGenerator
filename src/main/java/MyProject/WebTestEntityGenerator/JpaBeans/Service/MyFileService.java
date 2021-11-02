@@ -16,11 +16,14 @@ import java.util.Map;
 @Service
 public class MyFileService {
 
-    @Autowired
     private FileRepository fileRepository;
-
-    @Autowired
     private FileConverter converter;
+
+    public MyFileService(@Autowired FileRepository fileRepository,
+                         @Autowired FileConverter converter){
+        this.converter = converter;
+        this.fileRepository = fileRepository;
+    }
 
     public Map<String,MyFile> findAll() {
         Map<String,MyFile> fileMap = new HashMap<>();

@@ -1,5 +1,6 @@
 package MyProject.WebTestEntityGenerator.JpaBeans.Entity;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,9 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table (name = "raid1")
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 public class MyFile {
 
     @Id
@@ -30,7 +29,4 @@ public class MyFile {
     @Column(name = "lastModified")
     private Long lastModified;
 
-
-    //@Column (name = "fileBytes")
-   // private File file;
 }

@@ -31,8 +31,12 @@ public class EntityFactory implements IFactory {
         person.setMiddleName(middleName);
         person.setLastName(lastName);
         person.setPhoneNumber(this.newPhoneNumber());
-
+        person.setEmail(createEmail(person));
         return person;
+    }
+
+    private String createEmail(Person person){
+        return person.getFirstName()+person.getLastName()+"@gmail.com";
     }
 
     private Long newPhoneNumber(){

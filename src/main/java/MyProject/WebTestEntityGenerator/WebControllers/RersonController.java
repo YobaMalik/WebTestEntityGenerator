@@ -5,7 +5,9 @@ import MyProject.WebTestEntityGenerator.JpaBeans.Service.CacheData;
 import MyProject.WebTestEntityGenerator.JpaBeans.Service.PeopleService;
 import MyProject.WebTestEntityGenerator.MVCForms.PersonForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,16 +15,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@CrossOrigin(maxAge = 3600)
 public class RersonController {
 
-    @Autowired
     private CacheData data;
 
     private PeopleService peopleService;
 
     @Autowired
-    public RersonController(PeopleService peopleService){
+    public RersonController(PeopleService peopleService, CacheData data){
         this.peopleService = peopleService;
+        this.data = data;
     }
 
     @PostMapping(value = "/GetOnePerson", headers = {"Content-type=application/json"})
@@ -37,10 +40,10 @@ public class RersonController {
         return peopleService.getAllEntities();
     }
 
-    @PostMapping(value = "/GetMaxId"/*, headers = {"Content-type=application/json"}*/)
+    @PostMapping(value = "/CreatePeopleInfo", headers = {"Content-type=application/json"})
     @ResponseBody
-    public void getMaxId() {
-        peopleService.addPeople((short) 152);
+    public void getMaxId(@RequestBody PersonForm form) {
+      peopleService.addPeople(form.getQuantity());
     }
 
     @PostMapping(value = "/FindByContaining", headers = {"Content-type=application/json"})
@@ -51,9 +54,15 @@ public class RersonController {
     }
 
     @PostMapping(value = "/UpdateEntity", headers = {"Content-type=application/json"})
-    @ResponseBody
+ //   @ResponseBody
     public void updateEntity(@RequestBody PersonForm message) {
         peopleService.updateEntity(1L,message.getMessage());
+    }
+
+    @PostMapping(value = "/UpdateEntityTest", headers = {"Content-type=application/json"})
+//    @ResponseBody
+    public void updateEntityTest(@RequestBody Person person) {
+        System.out.println(person);
     }
 
 }
