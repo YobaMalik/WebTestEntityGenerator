@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WorkTaskService {
@@ -17,8 +18,12 @@ public class WorkTaskService {
         this.workTaskRepository = workTaskRepository;
     }
 
-    public WorkTask getWorkTaskById(String project, String taskExecutor, Date issueDate){
+    public WorkTask getWorkTaskByProject(String project, String taskExecutor, Date issueDate){
        return workTaskRepository.findByProjectAndTaskExecutorAndIssueDate(project, taskExecutor, issueDate);
+    }
+
+    public Optional<WorkTask> getWorkTaskById(Long id){
+        return workTaskRepository.findById(id);
     }
 
     public void saveWorkTask(WorkTask workTask){

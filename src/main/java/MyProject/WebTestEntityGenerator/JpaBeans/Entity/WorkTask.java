@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name = "WorkTaskTable")
 public class WorkTask {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String project;

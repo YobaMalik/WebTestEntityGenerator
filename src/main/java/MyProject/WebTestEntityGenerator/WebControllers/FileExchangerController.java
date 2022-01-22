@@ -21,18 +21,16 @@ public class FileExchangerController {
     private MyFileService myFileService;
     private FileUploader uploader;
     private FileExchangerForm form;
-    private FileSearchThread thread;
+
     private RegistrationForm registrationForm;
 
     @Autowired
     public FileExchangerController(MyFileService myFileService,
                                    FileUploader uploader,
-                                   FileExchangerForm form,
-                                   FileSearchThread thread){
+                                   FileExchangerForm form){
         this.uploader = uploader;
         this.form = form;
         this.myFileService = myFileService;
-        this.thread = thread;
     }
     
     @PostMapping(value = "/SaveFiles")

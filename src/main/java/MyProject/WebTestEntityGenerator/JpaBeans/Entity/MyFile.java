@@ -29,4 +29,7 @@ public class MyFile {
     @Column(name = "lastModified")
     private Long lastModified;
 
+    @Column(name = "status")
+    private String status;
+
 }
