@@ -4,23 +4,22 @@ import MyProject.WebTestEntityGenerator.JpaBeans.Entity.Person;
 import MyProject.WebTestEntityGenerator.JpaBeans.Service.CacheData;
 import MyProject.WebTestEntityGenerator.JpaBeans.Service.PeopleService;
 import MyProject.WebTestEntityGenerator.MVCForms.PersonForm;
+import MyProject.WebTestEntityGenerator.ThreadTest.FileSearchThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.List;
 
 @Controller
 @CrossOrigin(maxAge = 3600)
+@SessionScope
 public class RersonController {
 
     private CacheData data;
-
     private PeopleService peopleService;
 
     @Autowired
@@ -29,7 +28,7 @@ public class RersonController {
         this.data = data;
     }
 
-    @PostMapping(value = "/GetOnePerson", headers = {"Content-type=application/json"})
+    @PostMapping(value = "GetOnePerson", headers = {"Content-type=application/json"})
     @ResponseBody
     public Person getPerson() {
         return peopleService.getFactory().newInstanse();

@@ -23,9 +23,10 @@ public class WorkTaskController {
     }
 
     @PostMapping(path = "SaveWorkTask")
+    @ResponseBody
     public void getWorkTaskFromReact(@RequestBody WorkTask workTask){
-
-       // workTaskService.saveWorkTask(workTask);
+        System.out.println(workTask.toString());
+        workTaskService.saveWorkTask(workTask);
     }
 
     @PostMapping(path = "GetWorkTasks")

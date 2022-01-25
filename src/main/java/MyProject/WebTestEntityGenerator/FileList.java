@@ -16,13 +16,13 @@ public class FileList {
     @Autowired
     FileConverter fileConverter;
 
-    public void getFilelist(String filePath, List<MyFile> fileMap){
+    public void getFilelist(String filePath, List<MyFile> fileMap, String fileMask){
         File[] files = new File(filePath).listFiles();
         for (File file : files){
             if (!file.isDirectory()) {
                 fileMap.add(fileConverter.convert(file));
             } else{
-                this.getFilelist(file.getPath(),fileMap);
+                this.getFilelist(file.getPath(),fileMap, fileMask);
             }
         }
     }

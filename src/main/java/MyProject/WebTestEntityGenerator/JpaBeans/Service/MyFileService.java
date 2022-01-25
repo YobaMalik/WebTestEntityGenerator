@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +54,14 @@ public class MyFileService {
 
     public void findByPart(){
         fileRepository.findAll();
+    }
+
+    public MyFile getPicById(Long id){
+        return fileRepository.findById(id).get();
+    }
+
+    public File getFileById(Long id){
+        return new File(fileRepository.findById(id).get().getFilePath());
     }
 
 }

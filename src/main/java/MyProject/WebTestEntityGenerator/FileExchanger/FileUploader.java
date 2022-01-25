@@ -3,17 +3,14 @@ package MyProject.WebTestEntityGenerator.FileExchanger;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 @Component
 public class FileUploader {
 
-    public void upload(String path, HttpServletResponse response){
-        try (InputStream in = new FileInputStream(path);
-             OutputStream out = response.getOutputStream()){
+    public ByteArrayOutputStream upload(File file){
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try (InputStream in = new FileInputStream(file)){
             int count;
             byte[] bytes = new byte[8192];
             while((count = in.read(bytes)) !=-1){
@@ -22,6 +19,7 @@ public class FileUploader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return out;
     }
 
 }

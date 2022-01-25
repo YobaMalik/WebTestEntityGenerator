@@ -1,28 +1,32 @@
 package MyProject.WebTestEntityGenerator.WebControllers;
 
 import MyProject.WebTestEntityGenerator.FileExchanger.FileUploader;
-import MyProject.WebTestEntityGenerator.MVCForms.FileExchangerForm;
 import MyProject.WebTestEntityGenerator.JpaBeans.Service.MyFileService;
+import MyProject.WebTestEntityGenerator.MVCForms.FileExchangerForm;
+import MyProject.WebTestEntityGenerator.MVCForms.FileForm;
 import MyProject.WebTestEntityGenerator.MVCForms.RegistrationForm;
 import MyProject.WebTestEntityGenerator.ThreadTest.FileSearchThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 
 @Controller
+@CrossOrigin(maxAge = 3600)
+@SessionScope
 public class FileExchangerController {
 
     private MyFileService myFileService;
     private FileUploader uploader;
     private FileExchangerForm form;
-
     private RegistrationForm registrationForm;
+
+    @Autowired
+    private FileSearchThread thread;
 
     @Autowired
     public FileExchangerController(MyFileService myFileService,
@@ -41,7 +45,7 @@ public class FileExchangerController {
 
     @PostMapping(value = "/UploadFiles")
     public void uploadFiles(HttpServletResponse response, @ModelAttribute("form") FileExchangerForm form){
-       uploader.upload(form.getFilePath(),response);
+      // uploader.upload(form.getFilePath(),response);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -49,7 +53,24 @@ public class FileExchangerController {
         form.setMyFileMap(myFileService.findAll());
         model.addAttribute("form", form);
         model.addAttribute("registrationForm",registrationForm);
+
+        myFileService.addFiles(thread.getFileMap());
+        System.out.println("ezzi");
+
         return "index";
     }
 
+    //Get one file by ID in DB
+    @PostMapping (value = "GetOnePic", headers = "Content-type=multipart/form-data")
+    @ResponseBody
+    public byte[] getOnePic(@RequestBody FileForm fileForm) throws FileNotFoundException {
+        return uploader.upload(myFileService.getFileById(fileForm.getPictureId())).toByteArray();
+    }
+/*
+    @PostMapping (value = "GetFile")
+    @ResponseBody
+    public byte[] getFile(@RequestBody FileForm fileForm){
+        return uplo
+    }
+*/
 }

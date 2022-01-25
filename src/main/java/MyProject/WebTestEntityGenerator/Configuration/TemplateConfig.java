@@ -9,7 +9,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-@Configuration
+//@Configuration
 public class TemplateConfig implements WebMvcConfigurer {
 /*
     @Bean
@@ -23,6 +23,6 @@ public class TemplateConfig implements WebMvcConfigurer {
         templateResolver.setCheckExistence(true);
 
         return templateResolver;
-    }*/
-
+    }
+*/
 }
