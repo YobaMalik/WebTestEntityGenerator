@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "raid1")
+@Table (name = "raid")
 @Data
 public class MyFile {
 
@@ -20,7 +20,7 @@ public class MyFile {
     @Column(name = "fileName")
     private String fileName;
 
-    @Column(name = "filePath")
+    @Column(name = "filePath" , columnDefinition = "varchar(1024)")
     private String filePath;
 
     @Column(name = "size")
@@ -32,4 +32,6 @@ public class MyFile {
     @Column(name = "status")
     private String status;
 
+    @Column (name = "fileMask")
+    private String fileMask;
 }

@@ -1,10 +1,14 @@
 package MyProject.WebTestEntityGenerator.FileExchanger;
 
 import MyProject.WebTestEntityGenerator.JpaBeans.Entity.MyFile;
+import MyProject.WebTestEntityGenerator.MVCForms.FileForm;
+import ch.qos.logback.core.rolling.helper.FileNamePattern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.Optional;
 
 @Component
 public class FileConverter {
@@ -40,6 +44,37 @@ public class FileConverter {
         myFile.setFilePath(file.getPath());
         myFile.setSize(file.length());
         myFile.setLastModified(System.currentTimeMillis());
+        myFile.setFileMask(getFileMask(file.getName()));
+
         return myFile;
+    }
+
+    private String getFileMask(String fileName) {
+        try {
+            return fileName.substring(fileName.lastIndexOf("."));
+        } catch (Exception e){
+            return "";
+        }
+    }
+
+    public FileForm convert (MyFile myFile){
+        FileForm fileForm = new FileForm();
+        fileForm.setBytes(convertToByteArrayOS(new File(myFile.getFilePath())).toByteArray());
+        fileForm.setStatus(myFile.getStatus());
+        return fileForm;
+    }
+
+    public ByteArrayOutputStream convertToByteArrayOS(File file){
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try (InputStream in = new FileInputStream(file)){
+            int count;
+            byte[] bytes = new byte[8192];
+            while((count = in.read(bytes)) !=-1){
+                out.write(bytes,0,count);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return out;
     }
 }

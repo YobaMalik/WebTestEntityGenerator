@@ -1,6 +1,8 @@
 package MyProject.WebTestEntityGenerator.WebControllers;
 
+import MyProject.WebTestEntityGenerator.FileExchanger.FileConverter;
 import MyProject.WebTestEntityGenerator.FileExchanger.FileUploader;
+import MyProject.WebTestEntityGenerator.JpaBeans.Entity.MyFile;
 import MyProject.WebTestEntityGenerator.JpaBeans.Service.MyFileService;
 import MyProject.WebTestEntityGenerator.MVCForms.FileExchangerForm;
 import MyProject.WebTestEntityGenerator.MVCForms.FileForm;
@@ -21,7 +23,7 @@ import java.io.FileNotFoundException;
 public class FileExchangerController {
 
     private MyFileService myFileService;
-    private FileUploader uploader;
+    private FileConverter fileConverter;
     private FileExchangerForm form;
     private RegistrationForm registrationForm;
 
@@ -30,9 +32,9 @@ public class FileExchangerController {
 
     @Autowired
     public FileExchangerController(MyFileService myFileService,
-                                   FileUploader uploader,
+                                   FileConverter fileConverter,
                                    FileExchangerForm form){
-        this.uploader = uploader;
+        this.fileConverter = fileConverter;
         this.form = form;
         this.myFileService = myFileService;
     }
@@ -53,24 +55,22 @@ public class FileExchangerController {
         form.setMyFileMap(myFileService.findAll());
         model.addAttribute("form", form);
         model.addAttribute("registrationForm",registrationForm);
-
-        myFileService.addFiles(thread.getFileMap());
-        System.out.println("ezzi");
-
         return "index";
     }
 
     //Get one file by ID in DB
     @PostMapping (value = "GetOnePic", headers = "Content-type=multipart/form-data")
     @ResponseBody
-    public byte[] getOnePic(@RequestBody FileForm fileForm) throws FileNotFoundException {
-        return uploader.upload(myFileService.getFileById(fileForm.getPictureId())).toByteArray();
+    public byte[] getOnePic(@RequestBody FileForm fileForm) {
+        MyFile myFilemy = myFileService.getPicById(fileForm.getPictureId());
+        //fileForm.setBytes(uploader.upload(myFileService.getFileById(fileForm.getPictureId())).toByteArray());
+        return fileConverter.convert(myFilemy).getBytes();
     }
 /*
     @PostMapping (value = "GetFile")
     @ResponseBody
     public byte[] getFile(@RequestBody FileForm fileForm){
         return uplo
-    }
+    }Blob {size: 5219622, type: 'application/octet-stream'}
 */
 }

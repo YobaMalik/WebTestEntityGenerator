@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class MyFileService {
@@ -28,9 +25,7 @@ public class MyFileService {
 
     public Map<String,MyFile> findAll() {
         Map<String,MyFile> fileMap = new HashMap<>();
-        fileRepository.findAll().forEach(e-> {
-            fileMap.putIfAbsent(e.getFilePath(),e);
-        });
+        fileRepository.findAll().forEach(e-> fileMap.putIfAbsent(e.getFilePath(),e));
         return fileMap;
     }
 
@@ -57,11 +52,9 @@ public class MyFileService {
     }
 
     public MyFile getPicById(Long id){
-        return fileRepository.findById(id).get();
+        Optional<MyFile> result = fileRepository.findById(id);
+        return result.orElse(new MyFile());
     }
 
-    public File getFileById(Long id){
-        return new File(fileRepository.findById(id).get().getFilePath());
-    }
 
 }
