@@ -17,7 +17,7 @@ public class FileSearchThread implements Runnable {
     @Autowired
     public FileSearchThread(FileList files){
         this.files = files;
-      //  this.run();
+        //this.run();
     }
 
     @Getter
@@ -26,7 +26,7 @@ public class FileSearchThread implements Runnable {
     @Override
     public void run() {
         System.out.println("Start vi von zulul");
-        files.getFileList("/media/yoba/1F1F7D497672B852",fileMap, "");
+        files.getFileList("/mnt/1F1F7D497672B852",fileMap, "");
         System.out.println(Thread.currentThread().getName()+" " + fileMap.size());
     }
 

@@ -4,6 +4,7 @@ import MyProject.WebTestEntityGenerator.FileExchanger.FileConverter;
 import MyProject.WebTestEntityGenerator.MVCForms.FileExchangerForm;
 import MyProject.WebTestEntityGenerator.JpaBeans.Entity.MyFile;
 import MyProject.WebTestEntityGenerator.JpaBeans.Repository.FileRepository;
+import MyProject.WebTestEntityGenerator.MVCForms.FileForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,5 +57,12 @@ public class MyFileService {
         return result.orElse(new MyFile());
     }
 
+    public void updateEntity(FileForm fileForm){
+       Optional<MyFile> myFile = fileRepository.findById(fileForm.getPictureId());
+       if(myFile.isPresent()) {
+           myFile.get().setStatus(fileForm.getStatus());
+           fileRepository.save(myFile.get());
+       }
+    }
 
 }

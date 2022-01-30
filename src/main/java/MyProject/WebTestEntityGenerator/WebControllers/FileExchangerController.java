@@ -15,7 +15,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 @Controller
 @CrossOrigin(maxAge = 3600)
@@ -48,6 +56,7 @@ public class FileExchangerController {
     @PostMapping(value = "/UploadFiles")
     public void uploadFiles(HttpServletResponse response, @ModelAttribute("form") FileExchangerForm form){
       // uploader.upload(form.getFilePath(),response);
+
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -61,16 +70,15 @@ public class FileExchangerController {
     //Get one file by ID in DB
     @PostMapping (value = "GetOnePic", headers = "Content-type=multipart/form-data")
     @ResponseBody
-    public byte[] getOnePic(@RequestBody FileForm fileForm) {
-        MyFile myFilemy = myFileService.getPicById(fileForm.getPictureId());
-        //fileForm.setBytes(uploader.upload(myFileService.getFileById(fileForm.getPictureId())).toByteArray());
-        return fileConverter.convert(myFilemy).getBytes();
+    public FileForm getOnePic(@RequestBody FileForm fileForm) throws IOException {
+        MyFile myFile = myFileService.getPicById(fileForm.getPictureId());
+        return fileConverter.convert(myFile);
     }
-/*
-    @PostMapping (value = "GetFile")
+
+    @PostMapping (value = "UpdateFileInfo")
     @ResponseBody
-    public byte[] getFile(@RequestBody FileForm fileForm){
-        return uplo
-    }Blob {size: 5219622, type: 'application/octet-stream'}
-*/
+    public void getFile(@RequestBody FileForm fileForm){
+        myFileService.updateEntity(fileForm);
+    }
+
 }

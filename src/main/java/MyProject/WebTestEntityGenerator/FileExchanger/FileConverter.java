@@ -2,13 +2,20 @@ package MyProject.WebTestEntityGenerator.FileExchanger;
 
 import MyProject.WebTestEntityGenerator.JpaBeans.Entity.MyFile;
 import MyProject.WebTestEntityGenerator.MVCForms.FileForm;
-import ch.qos.logback.core.rolling.helper.FileNamePattern;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class FileConverter {
@@ -57,14 +64,31 @@ public class FileConverter {
         }
     }
 
-    public FileForm convert (MyFile myFile){
+    public FileForm convert (MyFile myFile) throws IOException {
         FileForm fileForm = new FileForm();
-        fileForm.setBytes(convertToByteArrayOS(new File(myFile.getFilePath())).toByteArray());
+        File file = new File(myFile.getFilePath());
+        FileTime fileTime =
+                Files.readAttributes(file.toPath(), BasicFileAttributes.class).creationTime();
+        LocalDate localDate = fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        fileForm.setBytes(
+                Base64.encodeBase64String(
+                        convertToByteArrayOS(new File(myFile.getFilePath())).toByteArray()
+                )
+        );
+
+        String locationInfo = Arrays.stream(myFile.getFilePath().split("/"))
+                .skip(3).limit(5).collect(Collectors.joining("/"));
+
+        fileForm.setLocationInfo(locationInfo);
+        fileForm.setLocalDate(localDate);
+        fileForm.setPictureId(myFile.getId());
         fileForm.setStatus(myFile.getStatus());
+
         return fileForm;
     }
 
-    public ByteArrayOutputStream convertToByteArrayOS(File file){
+    private ByteArrayOutputStream convertToByteArrayOS(File file){
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try (InputStream in = new FileInputStream(file)){
             int count;
