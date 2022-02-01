@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "raid")
+@Table(name = "raidtest")
 @Data
 public class MyFile {
 
@@ -29,9 +29,10 @@ public class MyFile {
     @Column(name = "lastModified")
     private Long lastModified;
 
-    @Column(name = "status")
-    private String status;
-
     @Column (name = "fileMask")
     private String fileMask;
+
+    @OneToOne (cascade =  CascadeType.ALL)
+    @MapsId
+    private ImageInfo imageInfo;
 }

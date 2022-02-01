@@ -21,6 +21,7 @@ public class ConfigHandler implements IDataBaseMapper{
         ObjectMapper mapper = new ObjectMapper();
 
         try {
+            //TODO replace from json to DB
             valuesFromConfig = mapper.readValue(new File("src/main/resources/TestData.json"),typeReference);
         } catch (IOException e) {
             e.printStackTrace();

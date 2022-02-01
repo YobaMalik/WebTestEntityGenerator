@@ -17,6 +17,10 @@ repositories {
 	mavenCentral()
 }
 
+test {
+	useJUnitPlatform()
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.5.4'

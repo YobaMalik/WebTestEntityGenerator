@@ -13,11 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
@@ -68,17 +67,18 @@ public class FileExchangerController {
     }
 
     //Get one file by ID in DB
-    @PostMapping (value = "GetOnePic", headers = "Content-type=multipart/form-data")
+    @PostMapping (value = "DownloadOneImage", headers = "Content-type=multipart/form-data")
     @ResponseBody
     public FileForm getOnePic(@RequestBody FileForm fileForm) throws IOException {
         MyFile myFile = myFileService.getPicById(fileForm.getPictureId());
         return fileConverter.convert(myFile);
     }
 
-    @PostMapping (value = "UpdateFileInfo")
+    @PostMapping (value = "UpdateImageInfo")
     @ResponseBody
-    public void getFile(@RequestBody FileForm fileForm){
+    public void updateImageInfo(@RequestBody FileForm fileForm){
         myFileService.updateEntity(fileForm);
     }
+
 
 }

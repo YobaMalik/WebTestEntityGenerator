@@ -60,7 +60,7 @@ public class MyFileService {
     public void updateEntity(FileForm fileForm){
        Optional<MyFile> myFile = fileRepository.findById(fileForm.getPictureId());
        if(myFile.isPresent()) {
-           myFile.get().setStatus(fileForm.getStatus());
+           myFile.get().getImageInfo().setStatus(fileForm.getStatus());
            fileRepository.save(myFile.get());
        }
     }
