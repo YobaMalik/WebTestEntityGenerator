@@ -1,9 +1,8 @@
 package MyProject.WebTestEntityGenerator;
 
-import MyProject.WebTestEntityGenerator.JpaBeans.Entity.MyFile;
-import MyProject.WebTestEntityGenerator.JpaBeans.Repository.FileRepository;
+import MyProject.WebTestEntityGenerator.db.entity.MyFile;
+import MyProject.WebTestEntityGenerator.db.repository.FileRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

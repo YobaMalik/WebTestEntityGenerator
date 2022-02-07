@@ -1,7 +1,5 @@
 package MyProject.WebTestEntityGenerator;
 
-import MyProject.WebTestEntityGenerator.Configuration.ConnectorConfig;
-import MyProject.WebTestEntityGenerator.Configuration.TemplateConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
