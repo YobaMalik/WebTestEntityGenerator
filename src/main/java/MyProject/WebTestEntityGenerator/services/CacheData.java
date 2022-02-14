@@ -1,7 +1,7 @@
 package MyProject.WebTestEntityGenerator.services;
 
-import MyProject.WebTestEntityGenerator.db.entity.Person;
-import MyProject.WebTestEntityGenerator.db.repository.PeopleRepository;
+import MyProject.WebTestEntityGenerator.db.entity.TestPersonForSoftwareComplexEntity;
+import MyProject.WebTestEntityGenerator.db.repository.TestPersonForSoftwareComplexRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +16,10 @@ public class CacheData {
     //TODO DansGame?? delete?
 
     @Autowired
-    PeopleRepository peopleRepository;
+    TestPersonForSoftwareComplexRepository peopleRepository;
     private  Map<Long,String> lastNameMap;
 
-    public CacheData(PeopleRepository peopleRepository){
+    public CacheData(TestPersonForSoftwareComplexRepository peopleRepository){
         this.peopleRepository = peopleRepository;
     }
 
@@ -27,7 +27,7 @@ public class CacheData {
         if (lastNameMap == null) {
             lastNameMap =
                     peopleRepository.findAll().stream().collect(
-                            Collectors.toConcurrentMap(Person::getId, Person::getLastName));
+                            Collectors.toConcurrentMap(TestPersonForSoftwareComplexEntity::getId, TestPersonForSoftwareComplexEntity::getLastName));
         }
         List<Long> result = new ArrayList<>();
         lastNameMap.forEach((k, v) -> {

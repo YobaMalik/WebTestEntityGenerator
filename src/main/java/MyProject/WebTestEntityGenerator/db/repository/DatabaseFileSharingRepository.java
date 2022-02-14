@@ -1,10 +1,10 @@
 package MyProject.WebTestEntityGenerator.db.repository;
 
-import MyProject.WebTestEntityGenerator.db.entity.StorageEntity;
+import MyProject.WebTestEntityGenerator.db.entity.DatabaseFileSharingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StorageEntityRepository extends JpaRepository<StorageEntity, Long> {
+public interface DatabaseFileSharingRepository extends JpaRepository<DatabaseFileSharingEntity, Long> {
 
 }

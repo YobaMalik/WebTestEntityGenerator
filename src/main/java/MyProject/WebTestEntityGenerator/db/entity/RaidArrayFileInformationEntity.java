@@ -5,17 +5,16 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
 @Entity
-@Table(name = "Storage_entity_info")
-public class StorageEntityInfo {
+@Table(name = "ImageInfo")
+@Data
+public class RaidArrayFileInformationEntity {
 
-
-    public StorageEntityInfo() {
+    public RaidArrayFileInformationEntity() {
 
     }
 
-    public StorageEntityInfo(String status, LocalDate localDate, String commentary) {
+    public RaidArrayFileInformationEntity(String status, LocalDate localDate, String commentary) {
         this.status = status;
         this.localDate = localDate;
         this.commentary = commentary;
@@ -32,5 +31,3 @@ public class StorageEntityInfo {
 
     private String commentary;
 }
-
-

@@ -1,9 +1,9 @@
 package MyProject.WebTestEntityGenerator.util.entityhandler;
 
-import MyProject.WebTestEntityGenerator.db.entity.ImageInfo;
-import MyProject.WebTestEntityGenerator.db.entity.MyFile;
-import MyProject.WebTestEntityGenerator.db.entity.StorageEntity;
-import MyProject.WebTestEntityGenerator.db.entity.StorageEntityInfo;
+import MyProject.WebTestEntityGenerator.db.entity.RaidArrayFileInformationEntity;
+import MyProject.WebTestEntityGenerator.db.entity.RaidArrayFileEntity;
+import MyProject.WebTestEntityGenerator.db.entity.DatabaseFileSharingEntity;
+import MyProject.WebTestEntityGenerator.db.entity.RaidArrayFileSharingInformationEntity;
 import MyProject.WebTestEntityGenerator.rest.MyMockMultipartFile;
 import MyProject.WebTestEntityGenerator.rest.dto.FileDTO;
 import org.apache.commons.codec.binary.Base64;
@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 @Component
 public class FileDTOConverter {
 
-    public MyFile convert(File file)  {
-        MyFile myFile = new MyFile();
+    public RaidArrayFileEntity convert(File file)  {
+        RaidArrayFileEntity myFile = new RaidArrayFileEntity();
         myFile.setFileName(file.getName());
         myFile.setFilePath(file.getPath());
         myFile.setSize(file.length());
@@ -34,12 +34,12 @@ public class FileDTOConverter {
         LocalDate localDate = Instant.now().atZone(ZoneId.systemDefault()).toLocalDate();
 
 
-        myFile.setImageInfo(new ImageInfo());
+        myFile.setImageInfo(new RaidArrayFileInformationEntity());
         return myFile;
     }
 
 
-    public FileDTO convert (MyFile myFile) throws IOException {
+    public FileDTO convert (RaidArrayFileEntity myFile) throws IOException {
         FileDTO fileDTO = new FileDTO();
         File file = new File(myFile.getFilePath());
         FileTime fileTime =
@@ -63,21 +63,21 @@ public class FileDTOConverter {
         return fileDTO;
     }
 
-    public StorageEntity convertToStorageEntity(MultipartFile multipartFile) throws IOException {
-        StorageEntity storageEntity = new StorageEntity();
+    public DatabaseFileSharingEntity convertToStorageEntity(MultipartFile multipartFile) throws IOException {
+        DatabaseFileSharingEntity storageEntity = new DatabaseFileSharingEntity();
         storageEntity.setFileName(multipartFile.getOriginalFilename());
         storageEntity.setByteArray(multipartFile.getBytes());
 
         Instant instant = Instant.ofEpochMilli(System.currentTimeMillis());
         LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-        storageEntity.setStorageEntityInfo(new StorageEntityInfo("Test File",localDate,
+        storageEntity.setStorageEntityInfo(new RaidArrayFileSharingInformationEntity("Test File",localDate,
                "Upload at " + localDate.toString()));
 
         return storageEntity;
     }
 
-    public StorageEntity convertToStorageEntity(File file){
-        StorageEntity storageEntity = new StorageEntity();
+    public DatabaseFileSharingEntity convertToStorageEntity(File file){
+        DatabaseFileSharingEntity storageEntity = new DatabaseFileSharingEntity();
         storageEntity.setByteArray(this.convertToByteArrayOS(file).toByteArray());
         storageEntity.setFileName(file.getName());
         return storageEntity;
@@ -104,12 +104,12 @@ public class FileDTOConverter {
         }
     }
 
-    public MultipartFile convertToMultipartFile(StorageEntity storageEntity) throws IOException {
+    public MultipartFile convertToMultipartFile(DatabaseFileSharingEntity storageEntity) throws IOException {
         return new MyMockMultipartFile(storageEntity.getFileName(),storageEntity.getByteArray());
     }
 
     @Deprecated
-    private void saveFileToRaid(MultipartFile file, MyFile myFile) {
+    private void saveFileToRaid(MultipartFile file, RaidArrayFileEntity myFile) {
         try(OutputStream out = new FileOutputStream(myFile.getFilePath());
             InputStream in = file.getInputStream()){
             int count;
@@ -124,8 +124,8 @@ public class FileDTOConverter {
     }
 
     @Deprecated
-    public MyFile convert(MultipartFile file){
-        MyFile myFile = new MyFile();
+    public RaidArrayFileEntity convert(MultipartFile file){
+        RaidArrayFileEntity myFile = new RaidArrayFileEntity();
 
         myFile.setFileName(file.getOriginalFilename());
 
@@ -138,7 +138,7 @@ public class FileDTOConverter {
         Instant instant = Instant.ofEpochMilli(System.currentTimeMillis());
         LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 
-        myFile.setImageInfo(new ImageInfo("Test File",localDate,"Test"));
+        myFile.setImageInfo(new RaidArrayFileInformationEntity("Test File",localDate,"Test"));
 
         this.saveFileToRaid(file,myFile);
         return myFile;

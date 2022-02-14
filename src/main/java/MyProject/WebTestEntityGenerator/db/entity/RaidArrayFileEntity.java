@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "raid")
 @Data
-public class MyFile {
+public class RaidArrayFileEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,5 @@ public class MyFile {
     private String fileMask;
 
     @OneToOne (cascade =  CascadeType.ALL)
-    private ImageInfo imageInfo;
+    private RaidArrayFileInformationEntity imageInfo;
 }

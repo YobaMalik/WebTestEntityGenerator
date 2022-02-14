@@ -1,10 +1,9 @@
 package MyProject.WebTestEntityGenerator;
 
-import MyProject.WebTestEntityGenerator.db.entity.StorageEntityInfo;
+import MyProject.WebTestEntityGenerator.db.entity.RaidArrayFileSharingInformationEntity;
 import MyProject.WebTestEntityGenerator.util.entityhandler.FileDTOConverter;
-import MyProject.WebTestEntityGenerator.db.entity.ImageInfo;
-import MyProject.WebTestEntityGenerator.db.entity.StorageEntity;
-import MyProject.WebTestEntityGenerator.services.StorageEntityService;
+import MyProject.WebTestEntityGenerator.db.entity.DatabaseFileSharingEntity;
+import MyProject.WebTestEntityGenerator.services.DatabaseFileSharing;
 import MyProject.WebTestEntityGenerator.rest.dto.FileDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,21 +25,21 @@ import java.util.Optional;
 public class StorageEntityTest {
 
     @Autowired
-    private StorageEntityService service;
+    private DatabaseFileSharing service;
 
     @Autowired
     private FileDTOConverter converter;
 
     @Test
     public void entitySaveTest() throws IOException {
-        service.saveToStorage(this.testImageEntity());
+      //  service.saveToStorage(this.testImageEntity());
     }
 
     @Test
     public void entityDownloadTest() {
         FileDTO testFileForm = new FileDTO();
         testFileForm.setPictureId(41298L);
-        Optional<StorageEntity> storageEntity = service.findById(testFileForm);
+        Optional<DatabaseFileSharingEntity> storageEntity = service.findById(testFileForm);
 
         Assertions.assertTrue(storageEntity.isPresent());
 /*
@@ -63,11 +62,11 @@ public class StorageEntityTest {
     }
 
     public MultipartFile testImageEntity() {
-        StorageEntity entity = converter.convertToStorageEntity(new File("/media/yoba/wd120green/123.jpg"));
+        DatabaseFileSharingEntity entity = converter.convertToStorageEntity(new File("/media/yoba/wd120green/123.jpg"));
 
         Instant instant = Instant.ofEpochMilli(System.currentTimeMillis());
         LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-        entity.setStorageEntityInfo(new StorageEntityInfo("test", localDate,
+        entity.setStorageEntityInfo(new RaidArrayFileSharingInformationEntity("test", localDate,
                 "file added at " + System.currentTimeMillis()));
         MultipartFile multipartFile = new MockMultipartFile(entity.getFileName(), entity.getByteArray());
         return multipartFile;

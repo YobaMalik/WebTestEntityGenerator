@@ -1,7 +1,7 @@
 package MyProject.WebTestEntityGenerator;
 
-import MyProject.WebTestEntityGenerator.db.entity.MyFile;
-import MyProject.WebTestEntityGenerator.db.repository.FileRepository;
+import MyProject.WebTestEntityGenerator.db.entity.RaidArrayFileEntity;
+import MyProject.WebTestEntityGenerator.db.repository.RaidArrayFileRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.Optional;
 class WebTestEntityGeneratorApplicationTests {
 
 	@Autowired
-	private FileRepository fileRepository;
+	private RaidArrayFileRepository fileRepository;
 
 	@Test
 	void contextLoads() {
@@ -22,7 +22,7 @@ class WebTestEntityGeneratorApplicationTests {
 
 	@Test
 	void testOneEnitty(){
-		Optional<MyFile> optionalUser = fileRepository.findById(30L);
+		Optional<RaidArrayFileEntity> optionalUser = fileRepository.findById(30L);
 		Assertions.assertTrue(optionalUser.isPresent());
 	}
 

@@ -1,6 +1,6 @@
 package MyProject.WebTestEntityGenerator.rest.mvcforms;
 
-import MyProject.WebTestEntityGenerator.db.entity.MyFile;
+import MyProject.WebTestEntityGenerator.db.entity.RaidArrayFileEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class FileExchangerForm {
 
     private List<MultipartFile> files;
-    private Map<String, MyFile> myFileMap;
+    private Map<String, RaidArrayFileEntity> myFileMap;
     private String filePath;
     private String zulul;
 

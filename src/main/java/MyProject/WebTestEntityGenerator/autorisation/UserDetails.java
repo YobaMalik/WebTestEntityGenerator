@@ -1,8 +1,8 @@
 package MyProject.WebTestEntityGenerator.autorisation;
 
 //import MyProject.WebTestEntityGenerator.JpaBeans.Entity.User;
-import MyProject.WebTestEntityGenerator.db.entity.User;
-import MyProject.WebTestEntityGenerator.services.UserService;
+import MyProject.WebTestEntityGenerator.db.entity.AuthorisationUserEntity;
+import MyProject.WebTestEntityGenerator.services.AuthorisationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class UserDetails implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private AuthorisationUserService userService;
 
 
     /*public UserDetails(UserService userService){
@@ -24,7 +24,7 @@ public class UserDetails implements UserDetailsService {
     public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
-        User user = this.findUserbyUsername(username);
+        AuthorisationUserEntity user = this.findUserbyUsername(username);
         org.springframework.security.core.userdetails.User.UserBuilder builder ;
         if (user != null) {
             builder = org.springframework.security.core.userdetails.User.withUsername(username);
@@ -38,7 +38,7 @@ public class UserDetails implements UserDetailsService {
         return builder.build();
     }
 
-    private User findUserbyUsername(String username) {
+    private AuthorisationUserEntity findUserbyUsername(String username) {
         return userService.findByUsername(username);
     }
 

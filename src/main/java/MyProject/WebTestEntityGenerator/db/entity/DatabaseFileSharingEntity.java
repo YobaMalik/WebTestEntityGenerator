@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "storage_entity")
-public class StorageEntity {
+public class DatabaseFileSharingEntity {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class StorageEntity {
     private byte[] byteArray;
 
     @OneToOne (cascade =  CascadeType.ALL)
-    private StorageEntityInfo storageEntityInfo;
+    private RaidArrayFileSharingInformationEntity storageEntityInfo;
 
 
 }

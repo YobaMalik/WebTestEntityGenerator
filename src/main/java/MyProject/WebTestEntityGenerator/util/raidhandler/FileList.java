@@ -1,6 +1,6 @@
-package MyProject.WebTestEntityGenerator.util.filehandler;
+package MyProject.WebTestEntityGenerator.util.raidhandler;
 
-import MyProject.WebTestEntityGenerator.db.entity.MyFile;
+import MyProject.WebTestEntityGenerator.db.entity.RaidArrayFileEntity;
 import MyProject.WebTestEntityGenerator.util.entityhandler.FileDTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class FileList {
     @Autowired
     GenericFilter filter;
 
-    public void getFileList(String filePath, List<MyFile> fileMap, String fileMask){
+    public void getFileList(String filePath, List<RaidArrayFileEntity> fileMap, String fileMask){
 
         File[] files = new File(filePath).listFiles(filter);
 

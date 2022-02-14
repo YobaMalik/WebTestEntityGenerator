@@ -4,7 +4,7 @@ package MyProject.WebTestEntityGenerator.util.apkentity.entityfactory;
 import MyProject.WebTestEntityGenerator.util.apkentity.dao.ConfigHandler;
 import MyProject.WebTestEntityGenerator.util.apkentity.entityfactory.Interface.IFactory;
 import MyProject.WebTestEntityGenerator.util.apkentity.entityfactory.Interface.IGenerator;
-import MyProject.WebTestEntityGenerator.db.entity.Person;
+import MyProject.WebTestEntityGenerator.db.entity.TestPersonForSoftwareComplexEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,8 +14,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 public class EntityFactory implements IFactory {
 
-    private Person newSingleInstance(){
-        Person person = new Person();
+    private TestPersonForSoftwareComplexEntity newSingleInstance(){
+        TestPersonForSoftwareComplexEntity person = new TestPersonForSoftwareComplexEntity();
         IGenerator generator = new RandomValueGenerator();
 
         String firstName = generator.randomEntity(
@@ -35,7 +35,7 @@ public class EntityFactory implements IFactory {
         return person;
     }
 
-    private String createEmail(Person person){
+    private String createEmail(TestPersonForSoftwareComplexEntity person){
         return person.getFirstName()+person.getLastName()+"@gmail.com";
     }
 
@@ -44,13 +44,13 @@ public class EntityFactory implements IFactory {
     }
 
     @Override
-    public Person newInstanse(){
+    public TestPersonForSoftwareComplexEntity newInstanse(){
         return newSingleInstance();
     }
 
     @Override
-    public List<Person> newInstanse(long entityCount){
-        List<Person> people = new ArrayList<>();
+    public List<TestPersonForSoftwareComplexEntity> newInstanse(long entityCount){
+        List<TestPersonForSoftwareComplexEntity> people = new ArrayList<>();
         for (int i = 0; i <= entityCount; i++){
             people.add(newSingleInstance());
         }

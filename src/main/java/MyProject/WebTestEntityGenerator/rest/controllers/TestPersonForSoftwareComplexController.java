@@ -1,9 +1,8 @@
 package MyProject.WebTestEntityGenerator.rest.controllers;
 
-import MyProject.WebTestEntityGenerator.db.entity.Person;
+import MyProject.WebTestEntityGenerator.db.entity.TestPersonForSoftwareComplexEntity;
 import MyProject.WebTestEntityGenerator.rest.dto.PersonDTO;
-import MyProject.WebTestEntityGenerator.services.PeopleService;
-import MyProject.WebTestEntityGenerator.util.entityhandler.PersonDTOConverter;
+import MyProject.WebTestEntityGenerator.services.TestPersonForSoftwareComplexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,43 +16,43 @@ import java.util.List;
 @Controller
 @CrossOrigin(maxAge = 3600)
 @SessionScope
-public class RersonController {
+public class TestPersonForSoftwareComplexController {
 
-    private PeopleService peopleService;
+    private TestPersonForSoftwareComplexService testPersonForSoftwareComplexService;
 
     @Autowired
-    public RersonController(PeopleService peopleService) {
-        this.peopleService = peopleService;
+    public TestPersonForSoftwareComplexController(TestPersonForSoftwareComplexService testPersonForSoftwareComplexService) {
+        this.testPersonForSoftwareComplexService = testPersonForSoftwareComplexService;
     }
 
     @PostMapping(value = "GetOnePerson", headers = {"Content-type=application/json"})
     @ResponseBody
     public PersonDTO getPerson() {
-        return peopleService.getOnePerson();
+        return testPersonForSoftwareComplexService.getOnePerson();
     }
 
     @PostMapping(value = "GetAllFromDB", headers = {"Content-type=application/json"})
     @ResponseBody
     public List<PersonDTO> getPersonList() {
-        return peopleService.getAllEntities();
+        return testPersonForSoftwareComplexService.getAllEntities();
     }
 
     @PostMapping(value = "CreatePeopleInfo", headers = {"Content-type=application/json"})
     @ResponseBody
     public void getMaxId(@RequestBody PersonDTO personDTO) {
-        peopleService.addPeople(personDTO);
+        testPersonForSoftwareComplexService.addPeople(personDTO);
     }
 
     @PostMapping(value = "FindByContaining", headers = {"Content-type=application/json"})
     @ResponseBody
-    public List<Person> findByContaining(@RequestBody PersonDTO personDTO) {
-        return peopleService.findByLastNameContaining(personDTO);
+    public List<TestPersonForSoftwareComplexEntity> findByContaining(@RequestBody PersonDTO personDTO) {
+        return testPersonForSoftwareComplexService.findByLastNameContaining(personDTO);
     }
 
     @PostMapping(value = "UpdateEntity", headers = {"Content-type=application/json"})
     @ResponseBody
     public void updateEntity(@RequestBody PersonDTO personDTO) {
-        peopleService.updateEntity(personDTO);
+        testPersonForSoftwareComplexService.updateEntity(personDTO);
     }
 
     @PostMapping(value = "UpdateEntityTest", headers = {"Content-type=application/json"})

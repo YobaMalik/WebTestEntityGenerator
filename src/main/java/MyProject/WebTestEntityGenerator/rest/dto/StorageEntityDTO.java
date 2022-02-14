@@ -14,8 +14,9 @@ public class StorageEntityDTO {
 
     }
 
-    public StorageEntityDTO(Long id, String responseStatus) {
+    public StorageEntityDTO(Long id,  String fileName, String responseStatus) {
         this.id = id;
+        this.fileName = fileName;
         this.responseStatus = responseStatus;
     }
 }

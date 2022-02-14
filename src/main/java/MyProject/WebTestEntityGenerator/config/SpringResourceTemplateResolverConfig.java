@@ -3,7 +3,7 @@ package MyProject.WebTestEntityGenerator.config;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //@Configuration
-public class TemplateConfig implements WebMvcConfigurer {
+public class SpringResourceTemplateResolverConfig implements WebMvcConfigurer {
 /*
     @Bean
     public SpringResourceTemplateResolver firstTemplateResolver() {

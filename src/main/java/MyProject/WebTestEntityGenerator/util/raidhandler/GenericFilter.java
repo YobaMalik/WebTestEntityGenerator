@@ -1,4 +1,4 @@
-package MyProject.WebTestEntityGenerator.util.filehandler;
+package MyProject.WebTestEntityGenerator.util.raidhandler;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

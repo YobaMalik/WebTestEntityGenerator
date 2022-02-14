@@ -1,7 +1,7 @@
 package MyProject.WebTestEntityGenerator.util.threadtest;
 
-import MyProject.WebTestEntityGenerator.util.filehandler.FileList;
-import MyProject.WebTestEntityGenerator.db.entity.MyFile;
+import MyProject.WebTestEntityGenerator.util.raidhandler.FileList;
+import MyProject.WebTestEntityGenerator.db.entity.RaidArrayFileEntity;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class FileSearchThread implements Runnable {
     }
 
     @Getter
-    List<MyFile> fileMap = new ArrayList<>();
+    List<RaidArrayFileEntity> fileMap = new ArrayList<>();
 
     @Override
     public void run() {

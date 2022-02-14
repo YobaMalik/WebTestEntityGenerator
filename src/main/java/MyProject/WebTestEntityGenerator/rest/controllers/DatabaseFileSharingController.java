@@ -1,10 +1,8 @@
 package MyProject.WebTestEntityGenerator.rest.controllers;
 
-import MyProject.WebTestEntityGenerator.rest.dto.FileDTO;
 import MyProject.WebTestEntityGenerator.rest.dto.StorageEntityDTO;
-import MyProject.WebTestEntityGenerator.services.StorageEntityService;
+import MyProject.WebTestEntityGenerator.services.DatabaseFileSharing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,28 +16,31 @@ import java.io.IOException;
 @Controller
 @SessionScope
 @CrossOrigin(maxAge = 3600)
-public class ImageStorageController {
+public class DatabaseFileSharingController {
 
-    private StorageEntityService entityService;
+    private DatabaseFileSharing databaseFileSharing;
 
-    public ImageStorageController(@Autowired StorageEntityService entityService) {
-        this.entityService = entityService;
+    public DatabaseFileSharingController(@Autowired DatabaseFileSharing databaseFileSharing) {
+        this.databaseFileSharing = databaseFileSharing;
     }
 
     @PostMapping(value = "SaveImage", headers = "Content-type=multipart/form-data")
     @ResponseBody
     public StorageEntityDTO saveFile(@RequestParam(value = "file") MultipartFile multipartFile) throws IOException {
         multipartFile.getResource();
-        return entityService.saveToStorage(multipartFile);
+        return databaseFileSharing.saveToStorage(multipartFile);
     }
 
 //TODO Problem with send as response
-    @PostMapping (value = "UploadOneImage", headers = "Content-type=application/json")
-    public ResponseEntity<Resource> uploadOneImage (@RequestBody StorageEntityDTO dto) throws IOException {
-        MultipartFile multipartFile = entityService.uploadOneImage(dto.getId());
+
+    @PostMapping (value = "DownloadOneImage")
+    @ResponseBody
+    public ResponseEntity<Resource> downloadOneImage (@RequestBody StorageEntityDTO dto) throws IOException {
+
+        MultipartFile multipartFile = databaseFileSharing.uploadOneImage(dto.getId());
         Resource fileSystemResource = multipartFile.getResource();
         return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(fileSystemResource);
     }
 }

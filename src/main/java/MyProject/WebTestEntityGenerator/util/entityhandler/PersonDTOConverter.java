@@ -1,6 +1,6 @@
 package MyProject.WebTestEntityGenerator.util.entityhandler;
 
-import MyProject.WebTestEntityGenerator.db.entity.Person;
+import MyProject.WebTestEntityGenerator.db.entity.TestPersonForSoftwareComplexEntity;
 import MyProject.WebTestEntityGenerator.rest.dto.PersonDTO;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class PersonDTOConverter {
-    public PersonDTO convertTOPersonDTO(Person person) {
+    public PersonDTO convertTOPersonDTO(TestPersonForSoftwareComplexEntity person) {
         PersonDTO personDTO = new PersonDTO();
 
         personDTO.setEmail(person.getEmail());
@@ -26,7 +26,7 @@ public class PersonDTOConverter {
                 temp.substring(7, 9) + "-" + temp.substring(9, 11) : temp;
     }
 
-    public List<PersonDTO> convertAllEntities(List<Person> entites) {
+    public List<PersonDTO> convertAllEntities(List<TestPersonForSoftwareComplexEntity> entites) {
        return entites.stream().map(this::convertTOPersonDTO).collect(Collectors.toList());
     }
 }

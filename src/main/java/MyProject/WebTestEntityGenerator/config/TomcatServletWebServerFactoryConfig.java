@@ -1,7 +1,7 @@
 package MyProject.WebTestEntityGenerator.config;
 
 //@Configuration
-public class ConnectorConfig {
+public class TomcatServletWebServerFactoryConfig {
 /*
     @Bean
     public TomcatServletWebServerFactory servletContainer() {
