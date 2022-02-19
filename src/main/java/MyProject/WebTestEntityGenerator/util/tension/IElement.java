@@ -12,4 +12,7 @@ public interface IElement<K,V> {
 
     Collection<V> getValues();
 
+    double getResultThickness(String element);
+
+    double getResultPressure(String element);
 }

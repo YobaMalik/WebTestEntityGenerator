@@ -1,12 +1,9 @@
 package MyProject.WebTestEntityGenerator.util.tension.elements.pipeline;
 
 import MyProject.WebTestEntityGenerator.util.tension.ElementStressCalculationHandler;
-import MyProject.WebTestEntityGenerator.util.tension.IElement;
-import MyProject.WebTestEntityGenerator.util.tension.ITension;
 import MyProject.WebTestEntityGenerator.util.tension.elements.StrengthCalculationArea;
 
-public class Elbow extends ElementStressCalculationHandler<String, StrengthCalculationArea>
-        implements ITension<String, StrengthCalculationArea> {
+public class Elbow extends ElementStressCalculationHandler<String, StrengthCalculationArea> {
 
     private double ki = 1;
 
@@ -16,24 +13,20 @@ public class Elbow extends ElementStressCalculationHandler<String, StrengthCalcu
     }
 
     @Override
-    public double getResultThickness() {
-        StrengthCalculationArea area = get("elbow");
+    public double getResultThickness(String element) {
+        StrengthCalculationArea area = get(element);
+
         return ki * (area.getDesignPressure() * area.getDiameter()) /
                 (2 * area.getWeldRate() * area.getTension() + area.getDesignPressure());
     }
 
     @Override
-    public double getResultPressure() {
-        StrengthCalculationArea area = get("elbow");
+    public double getResultPressure(String element) {
+        StrengthCalculationArea area = get(element);
         return 2 * area.getWeldRate() * area.getTension() * (area.getDesignThickness() -
                 area.getAdditionalThickness()) /
                 (area.getDiameter() * ki - (area.getDesignThickness() - area.getAdditionalThickness()));
 
-    }
-
-    @Override
-    public StrengthCalculationArea getElement(String key) {
-        return this.get(key);
     }
 
     private double getKI(StrengthCalculationArea area) {

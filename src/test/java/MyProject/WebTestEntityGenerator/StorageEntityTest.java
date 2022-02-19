@@ -20,8 +20,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Optional;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
+//@ExtendWith(SpringExtension.class)
+//@SpringBootTest
 public class StorageEntityTest {
 
     @Autowired

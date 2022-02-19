@@ -1,44 +1,62 @@
 package MyProject.WebTestEntityGenerator.util.tension.elements.pipeline;
 
 import MyProject.WebTestEntityGenerator.util.tension.ElementStressCalculationHandler;
-import MyProject.WebTestEntityGenerator.util.tension.IElement;
-import MyProject.WebTestEntityGenerator.util.tension.ITension;
 import MyProject.WebTestEntityGenerator.util.tension.elements.StrengthCalculationArea;
 
-public class Tee extends ElementStressCalculationHandler<String, StrengthCalculationArea>
-        implements ITension<String, StrengthCalculationArea> {
-
+public class Tee extends ElementStressCalculationHandler<String, StrengthCalculationArea> {
 
     @Override
-    public double getResultThickness() {
-        StrengthCalculationArea branch = get("branch");
-        double branchThickness = (branch.getDesignPressure() * branch.getDiameter()) /
-                (2 * branch.getWeldRate() * branch.getTension() +
-                        branch.getDesignPressure());
+    public double getResultThickness(String element) {
 
-        StrengthCalculationArea mainArea = get("main");
-        return (mainArea.getDesignPressure() * mainArea.getDiameter()) /
-                (2 * Math.min(mainArea.getWeldRate(), mainArea.getAdditionalThickness()) * mainArea.getTension() +
-                        mainArea.getDesignPressure());
+        calculateThickness(element);
+        return get(element).getResultThickness();
+
     }
 
     @Override
-    public double getResultPressure() {
-        StrengthCalculationArea mainPart = get("main");
-        double mainPartPressure = 2 * mainPart.getTension() * Math.min(mainPart.getWeldRate(), mainPart.getWeldRate()) *
-                (mainPart.getDesignThickness() - mainPart.getAdditionalThickness()) /
-                (mainPart.getDiameter() - (mainPart.getDesignThickness() - mainPart.getAdditionalThickness()));
+    public double getResultPressure(String element) {
 
-        StrengthCalculationArea branchPart = get("branch");
-        double branchPress = 2 * branchPart.getWeldRate() * branchPart.getTension() *
-                (branchPart.getDesignThickness() - branchPart.getAdditionalThickness()) /
-                (branchPart.getDiameter() - (branchPart.getDesignThickness() - branchPart.getAdditionalThickness()));
-        //   TODO press1 or Math.min(press1,press2)!?
-        return mainPartPressure;
+        calculatePressure(element);
+        return get(element).getResultPressure();
+
     }
 
-    @Override
-    public StrengthCalculationArea getElement(String key) {
-        return get(key);
+    private void calculateThickness(String element) {
+        StrengthCalculationArea area = get(element);
+
+        assert area != null;
+
+        if (ElementStressCalculationHandler.BRANCH.equals(element)) {
+            double branchThickness = (area.getDesignPressure() * area.getDiameter()) /
+                    (2 * area.getWeldRate() * area.getTension() +
+                            area.getDesignPressure());
+            area.setResultThickness(branchThickness);
+        }
+        if (ElementStressCalculationHandler.MAIN.equals(element)) {
+            double mainThickness = (area.getDesignPressure() * area.getDiameter()) /
+                    (2 * Math.min(area.getWeldRate(), area.getAdditionalThickness()) * area.getTension() +
+                            area.getDesignPressure());
+            area.setResultThickness(mainThickness);
+        }
+
     }
+
+    private void calculatePressure(String element) {
+        StrengthCalculationArea area = get(element);
+
+        if (ElementStressCalculationHandler.BRANCH.equals(element)) {
+            double mainPartPressure = 2 * area.getTension() * Math.min(area.getWeldRate(), area.getWeldRate()) *
+                    (area.getDesignThickness() - area.getAdditionalThickness()) /
+                    (area.getDiameter() - (area.getDesignThickness() - area.getAdditionalThickness()));
+            area.setResultPressure(mainPartPressure);
+        }
+
+        if (ElementStressCalculationHandler.MAIN.equals(element)) {
+            double branchPressure = 2 * area.getWeldRate() * area.getTension() *
+                    (area.getDesignThickness() - area.getAdditionalThickness()) /
+                    (area.getDiameter() - (area.getDesignThickness() - area.getAdditionalThickness()));
+            area.setResultPressure(branchPressure);
+        }
+    }
+
 }
